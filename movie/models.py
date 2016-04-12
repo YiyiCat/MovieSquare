@@ -1,8 +1,9 @@
-from __future__ import unicode_literals
+#from __future__ import unicode_literals
 
 from django.db import models
 
 # Create your models here
+
 class User(models.Model):
     name = models.CharField(max_length = 30,primary_key = True)
     password = models.CharField(max_length = 64)
@@ -16,10 +17,10 @@ class Movie(models.Model):
     actor = models.CharField(max_length = 30)
     actress = models.CharField(max_length = 30)
     type = models.CharField(max_length = 30)
-    time = models.DateTimeField(auto_now = True)
+    time = models.IntegerField()
 
 class Post(models.Model):
-    name = models.CharField(max_length = 40,primary_key = True)
+    name = models.CharField(max_length = 40)
     content = models.CharField(max_length = 800)
     poster = models.ForeignKey(User)
     time = models.DateTimeField(auto_now = True)
