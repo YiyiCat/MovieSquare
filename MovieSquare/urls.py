@@ -13,9 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+from movie.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include("django.contrib.auth.urls")),
+    url(r'^getMoviePoster/', getMoviePoster, name="getMoviePoster"),
+    url(r'^newPost/', newPost, name="newPost"),
+    url(r'^postDetail/(?P<pk>\d+)/$', PostDetailView.as_view(), name="postDetail"),
+    url(r'^register/', RegisterView.as_view()),
+    url(r'^getReplies/(\d+)/$', getReplies, name="getReplies"),
+    url(r'^newReply/(\d+)/$', newReply, name="newReply"),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
