@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回复列表</title>
+    <script language="javascript" type="text/javascript">
+        function resizeIframe(obj) {
+            obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+            obj.style.width = obj.contentWindow.document.body.scrollWidth + 'px';
+        }
+    </script>
+</head>
+<body>
+{% if contents %}
+    <table>
+        <tr>
+            <th>作者</th>
+            <th>时间</th>
+            <th>内容</th>
+            <th>图片</th>
+        </tr>
+        {% for reply in contents %}
+            <tr>
+                <td>{{ reply.user.username }}</td>
+                <td>{{ reply.time }}</td>
+                <td>{{ reply.content }}</td>
+                <td>
+                    {% if reply.image %}
+                        <img src="{{ reply.image.url }}">
+                    {% else %}
+                        并没有图片。
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    没有回复。
+{% endif %}
+<iframe src="{% url "newReply" post_id %}" frameborder="0" scrolling="no" onload="resizeIframe(this)"></iframe>
+</body>
+</html>

@@ -62,3 +62,4 @@ class Reply(models.Model):
     user = models.ForeignKey(User)
     content = models.CharField(max_length=100)
     time = models.DateTimeField(auto_now=True)
+    image = models.ImageField(null=True, blank=True)
