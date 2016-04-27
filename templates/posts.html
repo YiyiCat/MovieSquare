@@ -64,20 +64,6 @@
 
 <body>
 		<!--<p><img src="logo/logo1.png" alt="" width="120" height="120" align="middle" /></p>-->
-<div align="center">
-        	<p><img src="images/logo.png" alt="" width="160" height="107" align="middle" /></p>
-  			<table width="930" height="208" border="2" cellspacing="0" border-color="red">
-    			<tr>
-      				<td width="200" rowspan="2"><img src="images/dianying.jpg" width="428" height="486" alt="" /></td>
-      				<td width="767" height="39" id="title"><div align="center"><strong id="title"><a href="http://baike.baidu.com/subview/9688669/16791130.htm">谁的青春不迷茫</a></strong></div></td>
-    			</tr>
-   				<tr>
-      				<td height="164" id="content">
-                    	简介：人生一直处于辉煌巅峰的林天娇（郭姝彤饰），面对人生最重要的一次高考加分考试却重感冒了，情急之下她想通过作弊的方式顺利过关。没想到作弊也是需要技巧的，作弊失误的林天娇被高翔（白敬亭饰）看到，掉在地上的课本被老师误解这是高翔所为，高翔选择为林天娇挡了一刀。林天娇并不知道，她的人生的轨道从那一刻开始走向了另外一根轨道。毕竟高翔是她整个学习生涯中最反感的人。和自己讨厌的人扯上关系之后，林天娇用尽了各种方式想要摆脱高翔。倒不是谁吸引着谁，而是少年时大多数的气急败坏不是因为真的讨厌，而是因为害怕别人的眼光，害怕自己会变得不一样，害怕有人进入内心，害怕看不到前方而恐慌。在这个过程中，两个人互相拆台，林天娇发誓要拼个你死我活。
-                    </td>
-    			</tr>
-  			</table>
-</div>
         
         <br/>
         
@@ -100,68 +86,39 @@
 				<li><a href="#">下一页</a></li>
 			</ul>
 		</tr>
+
 	</table>
+
   			<table width="930" height="317" border="2">
+                {%  if  post %}
 				<tr>
-					<td colspan="2"><strong id="title">关于谁的青春不迷茫</strong></td>
+					<td colspan="2"><strong id="title">{{post.name}}</strong></td>
 				  </tr>
     			<tr>
       				<td width="100"></br>
-      				  <img src='images/tx1.gif' style="width:100px;height:100px" />
-   				  <p id="user">Krystal</p>				  </td>
+      				  <img src='images/user.png' style="width:100px;height:100px" />
+   				  <p id="user">{{post.poster.username}}</p> </td>
 					
 					<td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
-						晚上去看了谁的青春不迷茫
-						</br>
-						满是感动啊 然后高翔为林天娇挡水的那一刻 特别心动
-						</br>
-						欧小洋和田甜~剃头发的勇气
-						</br>	
-						被林子傲在秋千上的那段触动到了
-						</br>
-						总之很喜欢很喜欢	
+                        {{ post.content }}
 					</td>
 				</tr>
-                
+                {% endif %}
+
+                {% if contents %}
+                    {% for reply in contents %}
 				<tr>
 					<td width="100"></br>
-      				  <img src='images/tx2.gif' style="width:100px;height:100px" />
-   				  <p id="user">Victoria</p>				  </td>
-					
+      				  <img src='images/user.png' style="width:100px;height:100px" />
+   				  <p id="user">{{ reply.user.username }}</p>		</td>
 					<td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
-						还有高翔为林天娇画的星空教室 美翻了！！			
+					{{ reply.content} }}
 					</td>
 				</tr>
+                    {% endfor %}
+                {% endif %}
                 
-				<tr>
-                	<td width="100"></br>
-      				  <img src='images/tx3.gif' style="width:100px;height:100px" />
-   				  <p id="user">井井</p>				  </td>
-					
-					<td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
-						看完了，觉得不错。			
-					</td>
-                </tr>
-                
-                <tr>
-                	<td width="100"></br>
-      				  <img src='images/tx4.gif' style="width:100px;height:100px" />
-   				  <p id="user">Baron</p>				  </td>
-					
-					<td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
-						记得电影最后那两行字吗？			
-					</td>
-				</tr>
-                
-				<tr>
-					<td width="100"></br>
-      				  <img src='images/tx5.gif' style="width:100px;height:100px" />
-   				  <p id="user">胡巴</p>				  </td>
-					
-					<td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
-						接LS --- 毕业时，我们在一起，希望未来，我们还能再相遇。			
-					</td>
-				</tr>
+
 			</table>
 </div>
         

@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^register/', RegisterView.as_view()),
     url(r'^getReplies/(\d+)/$', getReplies, name="getReplies"),
     url(r'^newReply/(\d+)/$', newReply, name="newReply"),
+    url(r'^getMoviePosterAll/(.*)/(\d+)',getMoviePosterAll,name='getMoviePosterAll')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -25,6 +25,8 @@ class Profile(models.Model):
 
 class Movie(models.Model):
     name = models.CharField(max_length=40, primary_key=True)
+    descrip=models.CharField(max_length=2000)
+    img=models.ImageField()
     director = models.CharField(max_length=30)
     actor = models.CharField(max_length=30)
     actress = models.CharField(max_length=30)

@@ -9,12 +9,18 @@ from forms import *
 
 
 # Create your views here.
+
 def getMoviePoster(request):
     form = MoviePosterForm(request.GET)
     valid = form.is_valid()
     if valid:
         cd = form.cleaned_data
-        contents = Post.objects.filter(movie__name__contains=cd["movie"], plate=cd["plate"]).order_by("-time")
+        contents = Post.objects.filter(movie__name__contains=cd["movie"], plate=cd["plate"]).order_by("-time")[page-1,page+19]
+    return render(request, "getMoviePoster.html", locals())
+
+def getMoviePosterAll(request,movie_name,page):
+    Poster = Post.objects.filter(movie__name=movie_name).order_by("-time")[page-1,page+18]
+    movie= Movie.objects.get(name=movie_name)
     return render(request, "getMoviePoster.html", locals())
 
 
@@ -49,7 +55,14 @@ class PostDetailView(DetailView):
 
 
 def getReplies(request, post_id):
-    contents = Reply.objects.filter(post_id=post_id).order_by("-time")
+    post=Post.objects.get(id=post)
+    contents = Reply.objects.filter(id=post_id).order_by("-time")[0,19]
+    return render(request, "getReplies.html", locals())
+
+
+def getRepliesPage(request, post_id,page):
+    post=Post.objects.get(id=post)
+    contents = Reply.objects.filter(id=post_id).order_by("-time")[page-1,page+18]
     return render(request, "getReplies.html", locals())
 
 
