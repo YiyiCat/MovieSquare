@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^index/', index, name="index"),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include("django.contrib.auth.urls")),
-    url(r'^getMoviePoster/(.*)(?:/(\d+))?/', getMoviePoster, name="getMoviePoster"),
+    url(r'^getMoviePoster/(.*)/', getMoviePoster, name="getMoviePoster"),
     url(r'^newPost/(.*)/', newPost, name="newPost"),
     url(r'^postDetail/(?P<pk>\d+)/$', postDetailView, name="postDetail"),
     url(r'^register/', registerView, name="register"),

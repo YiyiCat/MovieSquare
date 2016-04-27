@@ -12,15 +12,13 @@ from forms import *
 # Create your views here.
 
 @login_required
-def getMoviePoster(request, movie_name, page):
-    if page is None:
-        page = 1
+def getMoviePoster(request, movie_name):
     movie = Movie.objects.get(name=movie_name)
     plates = [(
-        Post.objects.filter(movie__name__contains=movie_name).order_by("-time")[page - 1:page + 19], "plate_all",
+        Post.objects.filter(movie__name__contains=movie_name).order_by("-time"), "plate_all",
         "全部")] + [
-                 (Post.objects.filter(movie__name__contains=movie_name, plate=plate_id).order_by("-time")[
-                  page - 1:page + 19], "plate_{}".format(plate_id),
+                 (Post.objects.filter(movie__name__contains=movie_name, plate=plate_id).order_by("-time"),
+                  "plate_{}".format(plate_id),
                   plate_name)
                  for plate_id, plate_name in validPlates]
     if request.method == "POST":
