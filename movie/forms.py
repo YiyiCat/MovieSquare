@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from models import validPlates, Post, Reply
+from django.contrib.auth.forms import UserCreationForm
+from models import validPlates, Post, Reply, Profile, validSexes
+from django.contrib.auth.models import User
 
 
 class MoviePosterForm(forms.Form):
@@ -24,4 +26,19 @@ class ReplyForm(forms.ModelForm):
         fields = ["content"]
         widgets = {
             'content': forms.Textarea(),
+        }
+
+
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ("username", "email", "first_name")
+
+
+class RegisterProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ("sex", "phone")
+        widgets = {
+            'sex': forms.RadioSelect(choices=validSexes),
         }

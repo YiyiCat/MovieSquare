@@ -43,16 +43,32 @@ def newPost(request):
     return render(request, "newPost.html", locals())
 
 
-class RegisterView(FormView):
-    template_name = 'register.html'
-    form_class = UserCreationForm
-    success_url = "/getMoviePoster/"
+# class RegisterView(FormView):
+#     template_name = 'register.html'
+#     form_class = UserCreationForm
+#     success_url = reverse("login")
+#
+#     def form_valid(self, form):
+#         # This method is called when valid form data has been POSTed.
+#         # It should return an HttpResponse.
+#         form.save()
+#         return super(RegisterView, self).form_valid(form)
 
-    def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
-        form.save()
-        return super(RegisterView, self).form_valid(form)
+
+def registerView(request):
+    if request.method == "POST":
+        form1 = RegisterForm(request.POST)
+        form2 = RegisterProfileForm(request.POST)
+        if form1.is_valid() and form2.is_valid():
+            user = form1.save()
+            profile = form2.save(commit=False)
+            profile.auth_user = user
+            profile.save()
+            return redirect("login")
+    else:
+        form1 = RegisterForm()
+        form2 = RegisterProfileForm()
+    return render(request, "register.html", locals())
 
 
 class PostDetailView(DetailView):
@@ -84,3 +100,7 @@ def newReply(request, post_id):
     else:
         form = ReplyForm()
     return render(request, "newReply.html", locals())
+
+
+def index(request):
+    return render(request, "index.html")

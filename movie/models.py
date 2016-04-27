@@ -15,18 +15,24 @@ validPlates = [
     (5, "精彩瞬间"),
 ]
 
+validSexes = [
+    ("f", "女"),
+    ("m", "男"),
+]
+
 
 class Profile(models.Model):
     auth_user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
-    intro = models.CharField(max_length=100)
-    age = models.IntegerField()
-    sex = models.CharField(max_length=1)
+    intro = models.CharField(max_length=100, blank=True)
+    age = models.IntegerField(null=True, blank=True)
+    sex = models.CharField(max_length=1, choices=validSexes, blank=True)
+    phone = models.CharField(max_length=20, blank=True)
 
 
 class Movie(models.Model):
     name = models.CharField(max_length=40, primary_key=True)
-    descrip=models.CharField(max_length=2000)
-    img=models.ImageField()
+    descrip = models.CharField(max_length=2000)
+    img = models.ImageField()
     director = models.CharField(max_length=30)
     actor = models.CharField(max_length=30)
     actress = models.CharField(max_length=30)

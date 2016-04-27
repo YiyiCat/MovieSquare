@@ -21,12 +21,13 @@ from movie.views import *
 import os
 
 urlpatterns = [
+    url(r'^index/', index, name="index"),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include("django.contrib.auth.urls")),
-    url(r'^getMoviePoster/(.*)', getMoviePoster, name="getMoviePoster"),
+    url(r'^getMoviePoster/(.*)(?:/(\d+))', getMoviePoster, name="getMoviePoster"),
     url(r'^newPost/', newPost, name="newPost"),
     url(r'^postDetail/(?P<pk>\d+)/$', PostDetailView.as_view(), name="postDetail"),
-    url(r'^register/', RegisterView.as_view()),
+    url(r'^register/', registerView),
     url(r'^getReplies/(\d+)/$', getReplies, name="getReplies"),
     url(r'^newReply/(\d+)/$', newReply, name="newReply"),
     url(r'^getMoviePosterAll/(.*)/(\d+)', getMoviePosterAll, name='getMoviePosterAll')
