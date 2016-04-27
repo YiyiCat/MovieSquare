@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^getMoviePoster/(.*)(?:/(\d+))?/', getMoviePoster, name="getMoviePoster"),
     url(r'^newPost/(.*)/', newPost, name="newPost"),
     url(r'^postDetail/(?P<pk>\d+)/$', postDetailView, name="postDetail"),
-    url(r'^register/', registerView),
+    url(r'^register/', registerView, name="register"),
     url(r'^getReplies/(\d+)/$', getReplies, name="getReplies"),
     url(r'^newReply/(\d+)/$', newReply, name="newReply"),
     url(r'^getMoviePosterAll/(.*)/(\d+)/', getMoviePosterAll, name='getMoviePosterAll')
