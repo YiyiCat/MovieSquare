@@ -22,7 +22,7 @@ from movie.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include("django.contrib.auth.urls")),
-    url(r'^getMoviePoster/', getMoviePoster, name="getMoviePoster"),
+    url(r'^getMoviePoster/(.*)', getMoviePoster, name="getMoviePoster"),
     url(r'^newPost/', newPost, name="newPost"),
     url(r'^postDetail/(?P<pk>\d+)/$', PostDetailView.as_view(), name="postDetail"),
     url(r'^register/', RegisterView.as_view()),

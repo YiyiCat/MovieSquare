@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
@@ -10,17 +11,21 @@ from forms import *
 
 # Create your views here.
 
-def getMoviePoster(request):
-    form = MoviePosterForm(request.GET)
-    valid = form.is_valid()
-    if valid:
-        cd = form.cleaned_data
-        contents = Post.objects.filter(movie__name__contains=cd["movie"], plate=cd["plate"]).order_by("-time")[page-1,page+19]
+def getMoviePoster(request, movie_name, page=1):
+    movie = Movie.objects.get(name=movie_name)
+    plates = [(
+        Post.objects.filter(movie__name__contains=movie_name).order_by("-time")[page - 1:page + 19], "plate_all",
+        "全部")] + [
+                 (Post.objects.filter(movie__name__contains=movie_name, plate=plate_id).order_by("-time")[
+                  page - 1:page + 19], "plate_{}".format(plate_id),
+                  plate_name)
+                 for plate_id, plate_name in validPlates]
     return render(request, "getMoviePoster.html", locals())
 
-def getMoviePosterAll(request,movie_name,page):
-    Poster = Post.objects.filter(movie__name=movie_name).order_by("-time")[page-1,page+18]
-    movie= Movie.objects.get(name=movie_name)
+
+def getMoviePosterAll(request, movie_name, page):
+    Poster = Post.objects.filter(movie__name=movie_name).order_by("-time")[page - 1:page + 18]
+    movie = Movie.objects.get(name=movie_name)
     return render(request, "getMoviePoster.html", locals())
 
 
@@ -55,14 +60,14 @@ class PostDetailView(DetailView):
 
 
 def getReplies(request, post_id):
-    post=Post.objects.get(id=post)
-    contents = Reply.objects.filter(id=post_id).order_by("-time")[0,19]
+    post = Post.objects.get(id=post_id)
+    contents = Reply.objects.filter(id=post_id).order_by("-time")[0, 19]
     return render(request, "getReplies.html", locals())
 
 
-def getRepliesPage(request, post_id,page):
-    post=Post.objects.get(id=post)
-    contents = Reply.objects.filter(id=post_id).order_by("-time")[page-1,page+18]
+def getRepliesPage(request, post_id, page):
+    post = Post.objects.get(id=post_id)
+    contents = Reply.objects.filter(id=post_id).order_by("-time")[page - 1:page + 18]
     return render(request, "getReplies.html", locals())
 
 
