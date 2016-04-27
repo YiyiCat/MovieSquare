@@ -48,7 +48,7 @@ class Post(models.Model):
     content = models.CharField(max_length=800)
     poster = models.ForeignKey(User)
     time = models.DateTimeField(auto_now=True)
-    num = models.IntegerField()
+    num = models.IntegerField(null=True, blank=True)
     movie = models.ForeignKey(Movie)
     plate = models.IntegerField(choices=validPlates)
     image = models.ImageField(null=True, blank=True)

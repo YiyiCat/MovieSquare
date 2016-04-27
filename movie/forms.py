@@ -14,7 +14,7 @@ class MoviePosterForm(forms.Form):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["name", "content", "num", "movie", "plate", "image"]
+        fields = ["name", "content", "plate", "image"]
         widgets = {
             'content': forms.Textarea(),
         }

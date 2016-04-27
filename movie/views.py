@@ -11,7 +11,10 @@ from forms import *
 
 # Create your views here.
 
-def getMoviePoster(request, movie_name, page=1):
+@login_required
+def getMoviePoster(request, movie_name, page):
+    if page is None:
+        page = 1
     movie = Movie.objects.get(name=movie_name)
     plates = [(
         Post.objects.filter(movie__name__contains=movie_name).order_by("-time")[page - 1:page + 19], "plate_all",
@@ -20,6 +23,16 @@ def getMoviePoster(request, movie_name, page=1):
                   page - 1:page + 19], "plate_{}".format(plate_id),
                   plate_name)
                  for plate_id, plate_name in validPlates]
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.movie_id = movie_name
+            post.poster = request.user
+            post.save()
+            form = PostForm()
+    else:
+        form = PostForm()
     return render(request, "getMoviePoster.html", locals())
 
 
@@ -30,11 +43,12 @@ def getMoviePosterAll(request, movie_name, page):
 
 
 @login_required
-def newPost(request):
+def newPost(request, movie_name):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
+            post.movie_id = movie_name
             post.poster = request.user
             post.save()
             form = PostForm()
@@ -71,8 +85,25 @@ def registerView(request):
     return render(request, "register.html", locals())
 
 
-class PostDetailView(DetailView):
-    model = Post
+# class PostDetailView(DetailView):
+#     model = Post
+
+
+@login_required
+def postDetailView(request, pk):
+    post = Post.objects.get(id=pk)
+    contents = Reply.objects.filter(post_id=pk)
+    if request.method == "POST":
+        form = ReplyForm(request.POST, request.FILES)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.user = request.user
+            reply.post_id = pk
+            reply.save()
+            form = ReplyForm()
+    else:
+        form = ReplyForm()
+    return render(request, "movie/post_detail.html", locals())
 
 
 def getReplies(request, post_id):
