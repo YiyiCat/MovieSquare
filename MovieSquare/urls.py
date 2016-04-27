@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from movie.views import *
+import os
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,6 +29,9 @@ urlpatterns = [
     url(r'^register/', RegisterView.as_view()),
     url(r'^getReplies/(\d+)/$', getReplies, name="getReplies"),
     url(r'^newReply/(\d+)/$', newReply, name="newReply"),
-    url(r'^getMoviePosterAll/(.*)/(\d+)',getMoviePosterAll,name='getMoviePosterAll')
+    url(r'^getMoviePosterAll/(.*)/(\d+)', getMoviePosterAll, name='getMoviePosterAll')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+for folder in settings.STATIC_FOLDERS:
+    urlpatterns += static("/{}/".format(folder), document_root=os.path.join(settings.BASE_DIR, folder))

@@ -16,7 +16,7 @@
 			}
 			
 			body {
-	background-image: url(images/1.png);
+	background-image: url(../images/1.png);
 	background-repeat: repeat;
 	margin-left: 40px;
 			}
@@ -52,7 +52,7 @@
 				font-weight: bold;
 			}
 		</style>
-	   <link rel="stylesheet" href="css/bootstrap.min.css">
+	   <link rel="stylesheet" href="../css/bootstrap.min.css">
 	   <style type="text/css">
 	   h4 {
 	color: #900;
@@ -96,7 +96,7 @@
 				  </tr>
     			<tr>
       				<td width="100"></br>
-      				  <img src='images/user.png' style="width:100px;height:100px" />
+      				  <img src='../images/user.png' style="width:100px;height:100px" />
    				  <p id="user">{{post.poster.username}}</p> </td>
 					
 					<td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
@@ -109,7 +109,7 @@
                     {% for reply in contents %}
 				<tr>
 					<td width="100"></br>
-      				  <img src='images/user.png' style="width:100px;height:100px" />
+      				  <img src='../images/user.png' style="width:100px;height:100px" />
    				  <p id="user">{{ reply.user.username }}</p>		</td>
 					<td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
 					{{ reply.content} }}
