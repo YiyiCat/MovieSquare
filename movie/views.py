@@ -28,7 +28,7 @@ def getMoviePoster(request, movie_name):
             post.movie_id = movie_name
             post.poster = request.user
             post.save()
-            form = PostForm()
+            return redirect("getMoviePoster", movie_name)
     else:
         form = PostForm()
     return render(request, "getMoviePoster.html", locals())
@@ -98,7 +98,7 @@ def postDetailView(request, pk):
             reply.user = request.user
             reply.post_id = pk
             reply.save()
-            form = ReplyForm()
+            return redirect("postDetail", pk)
     else:
         form = ReplyForm()
     return render(request, "movie/post_detail.html", locals())
