@@ -98,24 +98,39 @@
                 </tr>
                 <tr>
                     <td width="100"></br>
-                        <img src='/images/user.png' style="width:100px;height:100px"/>
+                        <img src='/images/tx2.gif' style="width:100px;height:100px"/>
                         <p id="user">{{ post.poster.username }}</p></td>
 
-                    <td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
-                        {{ post.content }}
+                    {% if post.img.ulr %}
+                    <td width="705" style="vertical-align:top; padding-left:10px; padding-top:10px">
+                            {{ post.content }}
+                        </td>
+                        <td width="150" style="vertical-align:top; padding-left:10px; padding-top:10px"><img src={{ post.img.url }} />
                     </td>
-                </tr>
+                    {% else %}
+                    <td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
+                            {{ post.content }}
+                        </td>
+                     {% endif %}
             {% endif %}
 
             {% if contents %}
                 {% for reply in contents %}
                     <tr>
                         <td width="100"></br>
-                            <img src='/images/user.png' style="width:100px;height:100px"/>
+                            <img src='/images/tx2.gif' style="width:100px;height:100px"/>
                             <p id="user">{{ reply.user.username }}</p></td>
-                        <td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
+                {% if reply.img.ulr %}
+                    <td width="705" style="vertical-align:top; padding-left:10px; padding-top:10px">
                             {{ reply.content }}
                         </td>
+                        <td width="150" style="vertical-align:top; padding-left:10px; padding-top:10px"><img src={{ reply.img.url }} />
+                    </td>
+                    {% else %}
+                    <td width="855" style="vertical-align:top; padding-left:10px; padding-top:10px">
+                            {{ reply.content }}
+                        </td>
+                     {% endif %}
                     </tr>
                 {% endfor %}
             {% endif %}
